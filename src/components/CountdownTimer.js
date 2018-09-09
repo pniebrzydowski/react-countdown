@@ -66,15 +66,15 @@ class CountdownTimer extends Component {
       },
       {
         label: 'Hours',
-        value: this.padWithZeros(difference.hours())
+        value: this.padWithZeros(difference.get('hours'))
       },
       {
         label: 'Minutes',
-        value: this.padWithZeros(difference.minutes())
+        value: this.padWithZeros(difference.get('minutes'))
       },
       {
         label: 'Seconds',
-        value: this.padWithZeros(difference.seconds())
+        value: this.padWithZeros(difference.get('seconds'))
       }
     ];
     return (
