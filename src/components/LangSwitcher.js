@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import i18n from '../i18n';
 import styled from 'styled-components';
 import { locales } from '../config';
@@ -10,7 +10,7 @@ const StyledButton = styled.button`
   text-transform: uppercase;
 `;
 
-class LangSwitcher extends Component {
+class LangSwitcher extends PureComponent {
   switchTo(lng) {
     i18n.changeLanguage(lng);
   }
