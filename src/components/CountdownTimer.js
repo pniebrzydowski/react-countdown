@@ -98,4 +98,4 @@ CountdownTimer.propTypes = {
   t: PropTypes.func.isRequired,
 };
 
-export default translate('app')(CountdownTimer);
+export default translate()(CountdownTimer);
