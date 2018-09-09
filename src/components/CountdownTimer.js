@@ -32,6 +32,13 @@ class CountdownTimer extends Component {
     this.setState({ currentTime });
   }
 
+  padWithZeros(value) {
+    if (value < 10) {
+      return '0' + value;
+    }
+    return value;
+  }
+
   render() {
     const { currentTime, targetTime } = this.state;
     if (!currentTime || !targetTime) return null;
@@ -39,19 +46,19 @@ class CountdownTimer extends Component {
     const displays = [
       {
         label: 'Days',
-        value: targetTime.diff( currentTime, 'days' )
+        value: targetTime.diff( currentTime, 'days' ).toString()
       },
       {
         label: 'Hours',
-        value: difference.hours().toString()
+        value: this.padWithZeros(difference.hours())
       },
       {
         label: 'Minutes',
-        value: difference.minutes().toString()
+        value: this.padWithZeros(difference.minutes())
       },
       {
         label: 'Seconds',
-        value: difference.seconds().toString()
+        value: this.padWithZeros(difference.seconds())
       }
     ];
     return (
