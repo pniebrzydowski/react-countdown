@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
+import { translate } from 'react-i18next';
 import CountdownItem from './CountdownItem';
 
 const StyledCountdownTimer = styled.div`
@@ -33,7 +35,7 @@ class CountdownTimer extends Component {
     const timer = setInterval(this.tick, 1000);
     const currentTime = moment();
 
-    this.setState({currentTime, timer});
+    this.setState({ currentTime, timer });
   }
 
   componentWillUnmount() {
@@ -58,22 +60,24 @@ class CountdownTimer extends Component {
   render() {
     const { currentTime, targetTime } = this.state;
     if (!currentTime || !targetTime) return null;
+
+    const { t } = this.props;
     const difference = moment.duration(targetTime.diff(currentTime));
     const displays = [
       {
-        label: 'Days',
-        value: targetTime.diff( currentTime, 'days' ).toString()
+        label: t('days'),
+        value: targetTime.diff(currentTime, 'days').toString()
       },
       {
-        label: 'Hours',
+        label: t('hours'),
         value: this.padWithZeros(difference.get('hours'))
       },
       {
-        label: 'Minutes',
+        label: t('minutes'),
         value: this.padWithZeros(difference.get('minutes'))
       },
       {
-        label: 'Seconds',
+        label: t('seconds'),
         value: this.padWithZeros(difference.get('seconds'))
       }
     ];
@@ -81,13 +85,17 @@ class CountdownTimer extends Component {
       <StyledCountdownTimer>
         <StyledHeader>Starts in</StyledHeader>
         <CountdownGrid>
-        {displays.map(display => {
-          return <CountdownItem key={ display.label } label={ display.label } value={ display.value } />
-        })}
+          {displays.map(display => {
+            return <CountdownItem key={display.label} label={display.label} value={display.value} />
+          })}
         </CountdownGrid>
       </StyledCountdownTimer>
     );
   }
 }
 
-export default CountdownTimer;
+CountdownTimer.propTypes = {
+  t: PropTypes.func.isRequired,
+};
+
+export default translate('app')(CountdownTimer);
