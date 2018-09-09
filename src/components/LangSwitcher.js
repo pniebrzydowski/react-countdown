@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import i18n from '../i18n';
 import styled from 'styled-components';
+import { locales } from '../config';
 
 const StyledButton = styled.button`
   margin: 4px;
   padding: 8px;
   cursor: pointer;
+  text-transform: uppercase;
 `;
 
 class LangSwitcher extends Component {
@@ -16,8 +18,9 @@ class LangSwitcher extends Component {
   render() {
     return (
       <div>
-        <StyledButton onClick={() => this.switchTo('en')}>EN</StyledButton>
-        <StyledButton onClick={() => this.switchTo('de')}>DE</StyledButton>
+        {locales.map(locale => {
+          return <StyledButton onClick={() => this.switchTo(locale)}>{ locale }</StyledButton>
+        })}
       </div>
     );
   }

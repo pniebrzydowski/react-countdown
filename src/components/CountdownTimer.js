@@ -4,6 +4,7 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { translate } from 'react-i18next';
 import CountdownItem from './CountdownItem';
+import { targetDate } from '../config';
 
 const StyledCountdownTimer = styled.div`
   font-family: Helvetica,Arial,FreeSans,sans-serif;
@@ -26,7 +27,7 @@ class CountdownTimer extends Component {
     this.state = {
       timer: null,
       currentTime: null,
-      targetTime: moment('2018-11-23'),
+      targetTime: moment(targetDate),
     }
     this.tick = this.tick.bind(this);
   }
