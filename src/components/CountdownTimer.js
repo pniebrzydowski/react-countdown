@@ -39,7 +39,7 @@ class CountdownTimer extends Component {
     const displays = [
       {
         label: 'Days',
-        value: difference.days().toString()
+        value: targetTime.diff( currentTime, 'days' )
       },
       {
         label: 'Hours',
