@@ -57,30 +57,29 @@ class CountdownTimer extends Component {
     return value.toString();
   }
 
-  render() {
+  getDisplays(times) {
     const { currentTime, targetTime } = this.state;
-    if (!currentTime || !targetTime) return null;
-
     const { t } = this.props;
-    const difference = moment.duration(targetTime.diff(currentTime));
-    const displays = [
-      {
-        label: t('days'),
-        value: targetTime.diff(currentTime, 'days').toString()
-      },
-      {
-        label: t('hours'),
-        value: this.padWithZeros(difference.get('hours'))
-      },
-      {
-        label: t('minutes'),
-        value: this.padWithZeros(difference.get('minutes'))
-      },
-      {
-        label: t('seconds'),
-        value: this.padWithZeros(difference.get('seconds'))
+    const displays = [];
+    times.forEach((time, idx) => {
+      const dispObj = {
+        label: t(time),
       }
-    ];
+      if (idx === 0) {
+        dispObj.value = targetTime.diff(currentTime, time).toString();
+      } else {
+        const difference = moment.duration(targetTime.diff(currentTime));
+        dispObj.value = this.padWithZeros(difference.get(time));
+      }
+      displays.push(dispObj);
+    });
+
+    return displays;
+  }
+
+  render() {
+    const times = ['days', 'hours', 'minutes', 'seconds'];
+    const displays = this.getDisplays(times);
     return (
       <StyledCountdownTimer>
         <StyledHeader>Starts in</StyledHeader>
