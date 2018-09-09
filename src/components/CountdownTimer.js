@@ -1,6 +1,22 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import styled from 'styled-components';
 import CountdownItem from './CountdownItem';
+
+const StyledCountdownTimer = styled.div`
+  font-family: Helvetica,Arial,FreeSans,sans-serif;
+  padding: 5px;
+`;
+
+const StyledHeader = styled.header`
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 2px;
+`;
+
+const CountdownGrid = styled.div`
+  margin: 0 -4px;
+`;
 
 class CountdownTimer extends Component {
   constructor(props) {
@@ -36,7 +52,7 @@ class CountdownTimer extends Component {
     if (value < 10) {
       return '0' + value;
     }
-    return value;
+    return value.toString();
   }
 
   render() {
@@ -62,12 +78,14 @@ class CountdownTimer extends Component {
       }
     ];
     return (
-      <div className="countdown-timer">
-        <header>Starts in</header>
+      <StyledCountdownTimer>
+        <StyledHeader>Starts in</StyledHeader>
+        <CountdownGrid>
         {displays.map(display => {
           return <CountdownItem key={ display.label } label={ display.label } value={ display.value } />
         })}
-      </div>
+        </CountdownGrid>
+      </StyledCountdownTimer>
     );
   }
 }
