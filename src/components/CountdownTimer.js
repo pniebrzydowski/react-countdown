@@ -66,8 +66,10 @@ class CountdownTimer extends Component {
         label: t(time),
       }
       if (idx === 0) {
+        // get total number for largest unit, do not pad with zeros
         dispObj.value = targetTime.diff(currentTime, time).toString();
       } else {
+        // for all smaller units, get difference for just that unit, pad with zeros
         const difference = moment.duration(targetTime.diff(currentTime));
         dispObj.value = this.padWithZeros(difference.get(time));
       }
@@ -78,6 +80,7 @@ class CountdownTimer extends Component {
   }
 
   render() {
+    // times should be ordered from largest to smallest unit
     const times = ['days', 'hours', 'minutes', 'seconds'];
     const displays = this.getDisplays(times);
     return (
